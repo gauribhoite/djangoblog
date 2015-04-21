@@ -1,0 +1,28 @@
+application: myblog
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: main.application
+
+libraries:
+
+- name: django
+  version: "1.7"
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'projectpotato.settings'
+
+- url: /_ah/(mapreduce|queue|warmup).*
+  script: YOUR_DJANGO_APP.wsgi.application
+  login: admin
+
+- url: /.*
+  script: YOUR_DJANGO_APP.wsgi.application
